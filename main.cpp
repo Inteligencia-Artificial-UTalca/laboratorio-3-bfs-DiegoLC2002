@@ -82,6 +82,10 @@ int main(int argc, char *argv[]){
     }
     std::cout << std::endl;
 
+    //Tarea 6: Imprimir distancia
+    std::cout << "Distancia del Camino:" << path.size() - 1 << std::endl;
+
+
     colorMap.print(path);       //Print path distance
     
     return 0;
