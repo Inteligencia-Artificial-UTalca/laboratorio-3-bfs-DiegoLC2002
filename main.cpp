@@ -65,6 +65,23 @@ int main(int argc, char *argv[]){
 
     //6)Ejecutar BFS
     auto path = Search::BFS(map,{x1,y1},{x2,y2}); //Calculate path distance
+
+    //Verificar que el camino no este vacio
+    if(path.empty())
+    {
+        std::cout << "No se encontro camino\n";
+        return 0;
+    }
+
+    //Mensaje debug tamaño camino
+    std::cout << "Path size: " << path.size() << std::endl;
+
+    for(auto p : path)
+    {
+        std::cout << "(" << p.first << "," << p.second << ") ";
+    }
+    std::cout << std::endl;
+
     colorMap.print(path);       //Print path distance
     
     return 0;

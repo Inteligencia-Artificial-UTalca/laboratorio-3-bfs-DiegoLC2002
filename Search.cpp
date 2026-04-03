@@ -21,17 +21,23 @@ namespace std
 	};
 }
 
-std::vector<std::pair<int,int>> Search::reconstruct(const std::unordered_map<std::pair<int,int>,std::pair<int,int>> &pathCache, const std::pair<int,int> &start){
-	
+std::vector<std::pair<int,int>> Search::reconstruct(
+    const std::unordered_map<std::pair<int,int>,std::pair<int,int>> &pathCache, 
+    const std::pair<int,int> &start)
+{	
     std::deque<std::pair<int,int>> nodes;
 	auto node = start;//make copy
 
-    //traverse path from goal to start
+    while(true)
+    {
+        nodes.push_front(node);
 
-    //
-	//while(true){
-        //implement
-	//}
+        auto it = pathCache.find(node);
+        
+        if(it == pathCache.end()){ break;}
+
+        node = it->second;
+    }
 
     //revert path and return it
     std::vector<std::pair<int,int>> vec;
@@ -52,7 +58,8 @@ std::vector<std::pair<int,int>> Search::BFS(
     //stores possible directions
     std::pair<int,int> dirs[]{{-1,0},{0,1},{1,0},{0,-1}};
 
-    bool visited[map.h][map.w]{false};      //we'll just use a matrix og booleans to indicated if visited
+    //bool visited[map.h][map.w]{false};      //we'll just use a matrix og booleans to indicated if visited
+    std::vector<std::vector<bool>> visited(map.h, std::vector<bool>(map.w, false));
     std::queue<std::pair<int,int>> OPEN;
 
     std::unordered_map<std::pair<int,int>,std::pair<int,int>> pathCache;    ////hashmap to reconstruct path: child -> parent
@@ -71,7 +78,12 @@ std::vector<std::pair<int,int>> Search::BFS(
         if(pos == goal)
         {
             std::cout << "Meta Encontrada.\n";
-            return{start,goal};
+
+            auto result = reconstruct(pathCache, pos);
+
+            std::cout << "Path size (BFS): " << result.size() << std::endl;
+
+            return result;
         }
 
         //check if node is goal
@@ -108,15 +120,16 @@ std::vector<std::pair<int,int>> Search::BFS(
 
             //Agregar a la cola
             OPEN.push(newPos);
-            visited[newPos.first][newPos.second];
+            visited[newPos.first][newPos.second] = true;
+            pathCache[newPos] = pos;
 
 		}
 	}
 	std::cout<<"NOT FOUND!!!!\n";
-    
+    return {};
     //let's just return start and goal to draw them
-    std::vector<std::pair<int,int>> path;
+    /*std::vector<std::pair<int,int>> path;
     path.push_back(start);
     path.push_back(goal);
-    return path;
+    return path;*/
 }
