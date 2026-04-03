@@ -1,8 +1,6 @@
 #include "ColorMap.h"
 #include <iostream>
 
-
-
 /*
 red 31
 green 32
@@ -11,7 +9,6 @@ blue 34
 pink 35
 white 37
 */
-
 
 ColorMap::ColorMap(const Map& rhs):Map(rhs),colors{37,34,32,31,33}{
 
