@@ -3,8 +3,6 @@
 #include "Map.h"
 #include <unordered_map>
 
-
-
 class Search{
 
 public:

@@ -22,7 +22,8 @@ namespace std
 }
 
 std::vector<std::pair<int,int>> Search::reconstruct(const std::unordered_map<std::pair<int,int>,std::pair<int,int>> &pathCache, const std::pair<int,int> &start){
-	std::deque<std::pair<int,int>> nodes;
+	
+    std::deque<std::pair<int,int>> nodes;
 	auto node = start;//make copy
 
     //traverse path from goal to start
@@ -40,7 +41,11 @@ std::vector<std::pair<int,int>> Search::reconstruct(const std::unordered_map<std
     return vec;
 }
 
-std::vector<std::pair<int,int>> Search::BFS(const Map& map, std::pair<int,int> start, std::pair<int,int> goal){
+std::vector<std::pair<int,int>> Search::BFS(
+                                    const Map& map, 
+                                    std::pair<int,int> start, 
+                                    std::pair<int,int> goal)
+{    
     std::cout<<"===========================\nRunning BFS...\n";
 	auto startTime = std::chrono::high_resolution_clock::now();
 
@@ -49,12 +54,25 @@ std::vector<std::pair<int,int>> Search::BFS(const Map& map, std::pair<int,int> s
 
     bool visited[map.h][map.w]{false};      //we'll just use a matrix og booleans to indicated if visited
     std::queue<std::pair<int,int>> OPEN;
+
     std::unordered_map<std::pair<int,int>,std::pair<int,int>> pathCache;    ////hashmap to reconstruct path: child -> parent
 
     //add firts node to open list
+    OPEN.push(start);
+    visited[start.first][start.second] = true;
 
     while(!OPEN.empty()){
-        //get node
+        
+        //obtener nodo actual
+        auto pos = OPEN.front();
+        OPEN.pop();
+
+        //Verificar si se esta en el objetivo
+        if(pos == goal)
+        {
+            std::cout << "Meta Encontrada.\n";
+            return{start,goal};
+        }
 
         //check if node is goal
 		/*if(pos==goal){
@@ -71,16 +89,27 @@ std::vector<std::pair<int,int>> Search::BFS(const Map& map, std::pair<int,int> s
 			return reconstruct(pathCache,pos);
 		}*/
 
-		for(auto dir:dirs){
-			//copy the position
+        //Explorar vecinos
+		for(auto dir:dirs)
+        {
+            auto newPos = pos;
+            newPos.first += dir.first;
+            newPos.second += dir.second;
 
-            //then move it
-            
-            //if illegal or visited, skip it
-            
-            //add child to open list
+            //Si esta fuera de rango
+            if(newPos.first < 0 || newPos.first >= map.h ||
+               newPos.second < 0 || newPos.second >= map.w)
+                { continue;}
 
-            //register path
+            if(map._map[newPos.first][newPos.second] == 1){ continue;}
+
+            //Ya visitado
+            if(visited[newPos.first][newPos.second]){ continue;}
+
+            //Agregar a la cola
+            OPEN.push(newPos);
+            visited[newPos.first][newPos.second];
+
 		}
 	}
 	std::cout<<"NOT FOUND!!!!\n";
