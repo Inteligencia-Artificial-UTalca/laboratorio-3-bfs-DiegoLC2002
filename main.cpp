@@ -85,8 +85,29 @@ int main(int argc, char *argv[]){
     //Tarea 6: Imprimir distancia
     std::cout << "Distancia del Camino:" << path.size() - 1 << std::endl;
 
-
+    //Tarea 7:Imprimir mapa
     colorMap.print(path);       //Print path distance
     
     return 0;
 }
+
+/*
+Coordenadas de prueba al ajecutar:
+    - simple.txt:
+        ./busqueda simple.txt 1 1 5 4
+        ./busqueda simple.txt 1 1 5 4
+        ./busqueda simple.txt 6 1 1 4
+
+    - medium.txt:
+        ./busqueda medium.txt 6 1 1 4
+        ./busqueda medium.txt 1 1 9 14
+        ./busqueda medium.txt 1 1 1 14
+
+    - maze512.txt:
+        ./busqueda maze512.txt 1 1 510 510
+        ./busqueda maze512.txt 10 10 100 100
+
+    - paris.txt:
+        ./busqueda paris.txt 50 50 60 60        
+        ./busqueda paris.txt 10 10 200 200
+*/
