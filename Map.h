@@ -5,11 +5,11 @@
 class Map{
 
 protected:
-    int h;
-    int w;
     std::vector<std::vector<int>> _map;
 
 public:
+    int h;
+    int w;
     Map();                              //constructs empty map
     Map(std::string filename);          //constructs from data in a file
     Map(const Map& rhs);                //copy constructor

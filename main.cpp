@@ -4,6 +4,9 @@
 #include <cassert>
 #include <iostream>
 
+#include <fstream>  //Permite trabajar con archivos (leer y escribir).
+#include <stdexcept>    //Permite manejar errores (excepciones) en C++.
+
 int main(int argc, char *argv[]){
 
     //Verify that the amount of arguments is correct
@@ -16,26 +19,55 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
-    ///2) obtener argumentos
+    ///2) obtener nombre del archivo
     std::string fileMapName = argv[1];
-    int x1 = atoi(argv[2]);
-    int y1 = atoi(argv[3]);
-    int x2 = atoi(argv[4]);
-    int y2 = atoi(argv[5]);
 
+    ///2.2) Comprobar que el archivo existe
+    std::ifstream file(fileMapName);    //Intenta abrir el archivo
+    if(!file)
+    {
+        std::cerr << "Error: no se pudo abrir el archivo\n";
+        return 1;
+    }
+    file.close();
 
-    //Load map with class Map
-    ///3) Cargar Mapa
+    ///3) Convertir y Comprobar coordenadas
+    int x1, y1, x2, y2;
+    try
+    {
+        //Intenta hacer algo
+        x1 = std::stoi(argv[2]);
+        y1 = std::stoi(argv[3]);
+        x2 = std::stoi(argv[4]);
+        y2 = std::stoi(argv[5]);
+    }
+    catch(const std::exception& e)
+    {
+        //Si no funciona haz esto
+        std::cerr << "Error: Coordenada ingresada es incorrecta. Las coordenadas deben ser un numero entero.\n";
+        return 1;
+    }
+
+    ///4) Cargar Mapa con clase Map
     Map map(fileMapName);
+
+    ///4.2) Validar coordenadas dentro del mapa
+    /*
+    if(x1 < 0 || x1 >= map.h || y1 < 0 || y1 >= map.w ||
+       x2 < 0 || x2 >= map.h || y2 < 0 || y2 >= map.w)
+       {
+        std::cerr << "Error: coordenadas fuera de rango.\n";
+        return 1;
+        }
+    */
+   
+    ///5) Mostrar mapa    
     ColorMap colorMap(map);
     colorMap.print();
 
-    //4)Ejecutar BFS
-    auto path = Search::BFS(map,{x1,y1},{x2,y2});
-    colorMap.print(path);
-    
-    //Calculate path distance
-    //Print path distance
+    //6)Ejecutar BFS
+    auto path = Search::BFS(map,{x1,y1},{x2,y2}); //Calculate path distance
+    colorMap.print(path);       //Print path distance
     
     return 0;
 }
