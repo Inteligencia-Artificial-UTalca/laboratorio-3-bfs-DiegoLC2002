@@ -8,10 +8,23 @@ Map::Map():h(0),w(0){
 
 Map::Map(std::string filename){
     
-    //Load the file
-    //Resize map
-    //Save file information in map
-    //Close file
+    std::ifstream file(filename);   //abrir archivo
+
+    file >> h >> w; //leer dimensiones del mapa
+
+    _map.resize(h, std::vector<int>(w));    //Crear matriz
+
+    //Llenar la matriz creada
+    for(int i = 0; i < h; i++)
+    {
+        for(int j = 0; j < w; j++)
+        {
+            file >> _map[i][j];
+        }
+    }
+
+    file.close();   //Cerrar el archivo
+
 }   
 
 Map::Map(const Map& rhs):h(rhs.h),w(rhs.w),_map(rhs._map){

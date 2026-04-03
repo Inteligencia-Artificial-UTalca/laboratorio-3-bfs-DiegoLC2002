@@ -52,15 +52,13 @@ int main(int argc, char *argv[]){
     Map map(fileMapName);
 
     ///4.2) Validar coordenadas dentro del mapa
-    /*
     if(x1 < 0 || x1 >= map.h || y1 < 0 || y1 >= map.w ||
        x2 < 0 || x2 >= map.h || y2 < 0 || y2 >= map.w)
        {
         std::cerr << "Error: coordenadas fuera de rango.\n";
         return 1;
         }
-    */
-   
+
     ///5) Mostrar mapa    
     ColorMap colorMap(map);
     colorMap.print();
