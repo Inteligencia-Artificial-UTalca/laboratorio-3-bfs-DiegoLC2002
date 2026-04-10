@@ -165,9 +165,48 @@ std::vector<std::pair<int,int>> Search::greedyBFS(const Map& map, std::pair<int,
             std::pair<int,int>,
             std::vector<std::pair<int,int>>,
             Comparar
-    > OPEN(Comparar(goal));
+    > OPEN{(Comparar(goal))};
 
+    std::unordered_map<std::pair<int,int>, std::pair<int,int>> pathCache;
 
+    OPEN.push(start);
+    visitados[start.first][start.second] = true;
+
+    while(!OPEN.empty())
+    {
+        auto pos = OPEN.top();
+        OPEN.pop();
+
+        if(pos == goal)
+        {
+            std::cout<<"Meta encontrada (Greedy).\n";
+            return reconstruct(pathCache,pos);
+        }
+
+        for(auto dir:direcciones)
+        {
+            auto newPos = pos;
+            newPos.first += dir.first;
+            newPos.second += dir.second;
+
+            //Si esta fuera de rango
+            if(newPos.first < 0 || newPos.first >= map.h ||
+               newPos.second < 0 || newPos.second >= map.w)
+                { continue;}
+
+            if(map._map[newPos.first][newPos.second] == 1){ continue;}
+
+            //Ya visitado
+            if(visitados[newPos.first][newPos.second]){ continue;}
+
+            //Agregar a la cola
+            OPEN.push(newPos);
+            visitados[newPos.first][newPos.second] = true;
+            pathCache[newPos] = pos;
+        }
+    }
+
+    std::cout<<"NOT FOUND (Greedy)!!!!\n";
     return {};
 }
 
