@@ -133,3 +133,22 @@ std::vector<std::pair<int,int>> Search::BFS(
     path.push_back(goal);
     return path;*/
 }
+
+//Funciones para implementar Greedy BFS (Laboratorio 4)
+std::vector<std::pair<int,int>> Search::greedyBFS(const Map& map, std::pair<int,int> start, std::pair<int,int> goal)
+{
+    //Implementar aqui
+
+
+    return {};
+}
+
+
+float Search::Heuristic(std::pair<int,int> start, std::pair<int,int> goal)
+{
+    //Implementar
+    //Debe calcular y devolver un valor heuristico.
+
+
+    return 0.0f;
+}
