@@ -92,6 +92,8 @@ int main(int argc, char *argv[]){
 }
 
 /*
+Para compilar ingresa en WSL: make
+
 Coordenadas de prueba al ajecutar:
     - simple.txt:
         ./busqueda simple.txt 1 1 5 4
