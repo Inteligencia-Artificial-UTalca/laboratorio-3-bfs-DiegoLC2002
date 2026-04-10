@@ -146,9 +146,8 @@ std::vector<std::pair<int,int>> Search::greedyBFS(const Map& map, std::pair<int,
 
 float Search::Heuristic(std::pair<int,int> start, std::pair<int,int> goal)
 {
-    //Implementar
+    //Implementar heuristica Manhattan (Solo se mueve en 4 direcciones)
     //Debe calcular y devolver un valor heuristico.
 
-
-    return 0.0f;
+    return abs(start.first - goal.first) + abs(start.second - goal.second);
 }
