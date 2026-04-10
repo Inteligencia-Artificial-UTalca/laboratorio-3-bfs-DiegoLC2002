@@ -63,8 +63,29 @@ int main(int argc, char *argv[]){
     ColorMap colorMap(map);
     colorMap.print();
 
-    //6)Ejecutar BFS
-    auto path = Search::BFS(map,{x1,y1},{x2,y2}); //Calculate path distance
+    //6)Ejecutar BFS o BFS greedy
+    int opcionBFS;
+
+    std::cout << "Seleccione metodo:\n";
+    std::cout << "1.- BFS\n";
+    std::cout << "2.- BFS Greedy\n";
+    std::cout << "Opcion: ";
+    std::cin >> opcionBFS;
+
+    std::vector<std::pair<int,int>> path;
+
+    switch(opcionBFS)
+    {
+        case 1: path = Search::BFS(map,{x1,y1},{x2,y2}); //Calculate path distance
+                break;
+        
+        case 2: path = Search::greedyBFS(map,{x1,y1},{x2,y2});
+                break;
+        
+        default: std::cout<<"Opcion invalida\n";
+                 return 1;
+    }
+
 
     //Verificar que el camino no este vacio
     if(path.empty())

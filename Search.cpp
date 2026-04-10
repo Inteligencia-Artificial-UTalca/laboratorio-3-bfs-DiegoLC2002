@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <iostream>
 #include <limits>
-
+#include <cmath>
 
 namespace std
 {
@@ -156,7 +156,7 @@ std::vector<std::pair<int,int>> Search::greedyBFS(const Map& map, std::pair<int,
     //Implementar aqui
     std::cout<<"===========================\nRunning BFS Greedy...\n";
 
-    std::pair<int,int> direcciones[]{{1,0},{-1,0},{0,1},{0,-1}};
+    std::pair<int,int> direcciones[]{{-1,0},{0,1},{1,0},{0,-1}};
 
     std::vector<std::vector<bool>> visitados(map.h, std::vector<bool>(map.w, false));
 
