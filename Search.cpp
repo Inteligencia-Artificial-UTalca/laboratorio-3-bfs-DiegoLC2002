@@ -53,7 +53,7 @@ std::vector<std::pair<int,int>> Search::BFS(
                                     std::pair<int,int> goal)
 {    
     std::cout<<"===========================\nRunning BFS...\n";
-	auto startTime = std::chrono::high_resolution_clock::now();
+	//auto startTime = std::chrono::high_resolution_clock::now();
 
     //stores possible directions
     std::pair<int,int> dirs[]{{-1,0},{0,1},{1,0},{0,-1}};
@@ -135,9 +135,37 @@ std::vector<std::pair<int,int>> Search::BFS(
 }
 
 //Funciones para implementar Greedy BFS (Laboratorio 4)
+//Functor
+struct Comparar
+{
+    //Esto hace que el priority queue (lista de prioridad) saque el nodo más cercano a la meta (goal)
+    std::pair<int,int> goal;
+
+    Comparar(std::pair<int,int> g) : goal(g){}
+
+    bool operator()(std::pair<int,int> a, std::pair<int,int> b)
+    {
+        return Search::Heuristic(a, goal) > Search::Heuristic(b,goal);
+    }
+};
+
+
+
 std::vector<std::pair<int,int>> Search::greedyBFS(const Map& map, std::pair<int,int> start, std::pair<int,int> goal)
 {
     //Implementar aqui
+    std::cout<<"===========================\nRunning BFS Greedy...\n";
+
+    std::pair<int,int> direcciones[]{{1,0},{-1,0},{0,1},{0,-1}};
+
+    std::vector<std::vector<bool>> visitados(map.h, std::vector<bool>(map.w, false));
+
+    //Cola de prioridad (Priority Queue)
+    std::priority_queue<
+            std::pair<int,int>,
+            std::vector<std::pair<int,int>>,
+            Comparar
+    > OPEN(Comparar(goal));
 
 
     return {};
