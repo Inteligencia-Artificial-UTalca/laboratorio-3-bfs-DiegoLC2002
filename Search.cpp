@@ -245,6 +245,8 @@ std::vector<std::pair<int,int>> Search::AStar(const Map& map, std::pair<int,int>
 {
     std::cout << "===========================\nEjecutando A*...\n";
 
+    std::pair<int,int> direcciones[]{{-1,0},{0,1},{1,0},{0,-1}};
+
     std::unordered_map<std::pair<int,int>, float> gCost;    //Costo desde el inicio
     gCost[start] = 0.0f;
 
@@ -261,6 +263,52 @@ std::vector<std::pair<int,int>> Search::AStar(const Map& map, std::pair<int,int>
     
     OPEN.push(start);  //Agregar al inicio
 
+    while(!OPEN.empty())
+    {
+        auto current = OPEN.top();
+        OPEN.pop();
+        
+        //Saltar si es que ya ha sido procesado antes
+        if(CLOSED.find(current) != CLOSED.end()){ continue;}
+
+        //Si llegamos a la meta
+        if(current == goal)
+        {
+            std::cout<<"Meta encontrada (A*).\n";
+            return reconstruct(pathCache, current);
+        }
+
+        CLOSED.insert(current); //Agregar a los nodos cerrados
+
+        //Explorar nodos vecinos
+        for(auto dir:direcciones)
+        {
+            auto vecino = current;
+            vecino.first += dir.first;
+            vecino.second += dir.second;
+
+            //Si esta fuera de rango
+            if(vecino.first < 0 || vecino.first >= map.h ||
+               vecino.second < 0 || vecino.second >= map.w)
+                { continue;}
+
+            //Obstaculos
+            if(map._map[vecino.first][vecino.second] == 1){ continue;}
+
+            //Costo 
+            float newCost = gCost[current] + 1.0f;
+
+            //Si encontramos mejor camino o este no existe
+            if(gCost.find(vecino) == gCost.end() || newCost < gCost[vecino])
+            {
+                gCost[vecino] = newCost;
+                pathCache[vecino] = current;
+                OPEN.push(vecino);
+            }
+        }
+    }
+
+    std::cout<<"NOT FOUND (A*)!!!!\n";
     return {};
 }
 
