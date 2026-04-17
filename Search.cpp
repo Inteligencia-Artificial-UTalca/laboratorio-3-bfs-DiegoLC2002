@@ -78,12 +78,9 @@ std::vector<std::pair<int,int>> Search::BFS(
         //Verificar si se esta en el objetivo
         if(pos == goal)
         {
-            std::cout << "Meta Encontrada.\n";
-
+            std::cout << "Meta Encontrada (BFS).\n";
             auto result = reconstruct(pathCache, pos);
-
             std::cout << "Path size (BFS): " << result.size() << std::endl;
-
             return result;
         }
 
@@ -181,7 +178,9 @@ std::vector<std::pair<int,int>> Search::greedyBFS(const Map& map, std::pair<int,
         if(pos == goal)
         {
             std::cout<<"Meta encontrada (Greedy).\n";
-            return reconstruct(pathCache,pos);
+            auto result = reconstruct(pathCache, pos);
+            std::cout << "Path size (Greedy): " << result.size() << std::endl;
+            return result;
         }
 
         for(auto dir:direcciones)
@@ -275,7 +274,9 @@ std::vector<std::pair<int,int>> Search::AStar(const Map& map, std::pair<int,int>
         if(current == goal)
         {
             std::cout<<"Meta encontrada (A*).\n";
-            return reconstruct(pathCache, current);
+            auto result = reconstruct(pathCache, current);
+            std::cout << "Path size (A*): " << result.size() << std::endl;
+            return result;
         }
 
         CLOSED.insert(current); //Agregar a los nodos cerrados

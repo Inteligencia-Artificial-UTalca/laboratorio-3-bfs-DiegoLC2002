@@ -69,6 +69,7 @@ int main(int argc, char *argv[]){
     std::cout << "Seleccione metodo:\n";
     std::cout << "1.- BFS\n";
     std::cout << "2.- BFS Greedy\n";
+    std::cout << "3.- A*\n";
     std::cout << "Opcion: ";
     std::cin >> opcionBFS;
 
@@ -80,6 +81,9 @@ int main(int argc, char *argv[]){
                 break;
         
         case 2: path = Search::greedyBFS(map,{x1,y1},{x2,y2});
+                break;
+
+        case 3: path = Search::AStar(map,{x1,y1},{x2,y2});
                 break;
         
         default: std::cout<<"Opcion invalida\n";
