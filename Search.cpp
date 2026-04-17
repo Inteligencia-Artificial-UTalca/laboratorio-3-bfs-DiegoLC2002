@@ -225,6 +225,8 @@ std::vector<std::pair<int,int>> Search::AStar(const Map& map, std::pair<int,int>
 {
     std::cout << "===========================\nEjecutando A*...\n";
 
+    std::unordered_map<std::pair<int,int>, float> gCost;
+    gCost[start] = 0.0f;
 
     return {};
 }
