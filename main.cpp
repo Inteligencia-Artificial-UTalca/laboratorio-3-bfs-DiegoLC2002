@@ -66,7 +66,7 @@ int main(int argc, char *argv[]){
     //6)Ejecutar BFS o BFS greedy
     int opcionBFS;
 
-    std::cout << "Seleccione metodo:\n";
+    std::cout << "Seleccione metodo de busqueda de caminos:\n";
     std::cout << "1.- BFS\n";
     std::cout << "2.- BFS Greedy\n";
     std::cout << "3.- A*\n";

@@ -17,7 +17,6 @@ namespace std
 		{
             hash<int> hasher;
 			return hasher(p.first) ^ (hasher(p.second)<<1);
-
 		}
 	};
 }
@@ -32,11 +31,8 @@ std::vector<std::pair<int,int>> Search::reconstruct(
     while(true)
     {
         nodes.push_front(node);
-
         auto it = pathCache.find(node);
-        
         if(it == pathCache.end()){ break;}
-
         node = it->second;
     }
 
@@ -84,21 +80,6 @@ std::vector<std::pair<int,int>> Search::BFS(
             return result;
         }
 
-        //check if node is goal
-		/*if(pos==goal){
-			auto endTime = std::chrono::high_resolution_clock::now();
-			int count=0;
-            for(int i=0;i<map.h;i++){
-                for(int j=0;j<map.w;j++){
-                    if(visited[i][j])count++;
-                }
-            }
-            std::cout<<"VISITED: "<<count<<std::endl;
-			std::cout<<"OPEN: "<<OPEN.size()<<std::endl;
-			std::cout<<"FOUND in "<<(endTime-startTime).count()/1000000.0<<"ms\n";
-			return reconstruct(pathCache,pos);
-		}*/
-
         //Explorar vecinos
 		for(auto dir:dirs)
         {
@@ -123,13 +104,9 @@ std::vector<std::pair<int,int>> Search::BFS(
 
 		}
 	}
+
 	std::cout<<"NOT FOUND!!!!\n";
     return {};
-    //let's just return start and goal to draw them
-    /*std::vector<std::pair<int,int>> path;
-    path.push_back(start);
-    path.push_back(goal);
-    return path;*/
 }
 
 //Funciones para implementar Greedy BFS (Laboratorio 4)
@@ -147,11 +124,9 @@ struct Comparar
     }
 };
 
-
-
 std::vector<std::pair<int,int>> Search::greedyBFS(const Map& map, std::pair<int,int> start, std::pair<int,int> goal)
 {
-    //Implementar aqui
+    //Implementar uso de greedy
     std::cout<<"===========================\nRunning BFS Greedy...\n";
 
     std::pair<int,int> direcciones[]{{-1,0},{0,1},{1,0},{0,-1}};
@@ -206,7 +181,7 @@ std::vector<std::pair<int,int>> Search::greedyBFS(const Map& map, std::pair<int,
         }
     }
 
-    std::cout<<"NOT FOUND (Greedy)!!!!\n";
+    std::cout<<"NOT FOUND (Greedy)!!\n";
     return {};
 }
 
@@ -242,7 +217,7 @@ struct CompararAstar
 
 std::vector<std::pair<int,int>> Search::AStar(const Map& map, std::pair<int,int> start, std::pair<int,int> goal)
 {
-    std::cout << "===========================\nEjecutando A*...\n";
+    std::cout << "===========================\nRunning A*...\n";
 
     std::pair<int,int> direcciones[]{{-1,0},{0,1},{1,0},{0,-1}};
 
