@@ -222,6 +222,25 @@ float Search::Heuristic(std::pair<int,int> start, std::pair<int,int> goal)
 
 
 //Funciones para Lab 5
+struct CompararAstar
+{
+    std::pair<int,int> goal;
+    std::unordered_map<std::pair<int,int>, float>* gCost;
+
+    CompararAstar(std::pair<int,int> g, std::unordered_map<std::pair<int,int>, float>* Cost) : goal(g), gCost(Cost) {}
+
+    bool operator()(std::pair<int,int> a, std::pair<int,int> b)
+    {
+        //Calcular f = g + h 
+        float fa = (*gCost)[a] + Search::Heuristic(a, goal);    
+        float fb = (*gCost)[b] + Search::Heuristic(b, goal);
+
+        return fa > fb; //El f menor tiene mayor prioridad
+
+    }
+};
+
+
 std::vector<std::pair<int,int>> Search::AStar(const Map& map, std::pair<int,int> start, std::pair<int,int> goal)
 {
     std::cout << "===========================\nEjecutando A*...\n";
@@ -229,7 +248,13 @@ std::vector<std::pair<int,int>> Search::AStar(const Map& map, std::pair<int,int>
     std::unordered_map<std::pair<int,int>, float> gCost;    //Costo desde el inicio
     gCost[start] = 0.0f;
 
-    std::priority_queue<std::pair<int,int>> OPEN;   //Nodos abiertos
+    //Nodos abiertos
+    std::priority_queue<
+        std::pair<int,int>,
+        std::vector<std::pair<int,int>>,
+        CompararAstar
+    > OPEN{CompararAstar(goal, &gCost)};   
+
     std::unordered_set<std::pair<int,int>> CLOSED;  //Nodos cerrados
 
     std::unordered_map<std::pair<int,int>, std::pair<int,int>> pathCache;   //Reconstruir camino
