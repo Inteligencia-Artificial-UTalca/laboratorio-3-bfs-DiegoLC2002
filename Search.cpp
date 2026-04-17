@@ -5,6 +5,7 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <unordered_set>
 
 namespace std
 {
@@ -225,8 +226,15 @@ std::vector<std::pair<int,int>> Search::AStar(const Map& map, std::pair<int,int>
 {
     std::cout << "===========================\nEjecutando A*...\n";
 
-    std::unordered_map<std::pair<int,int>, float> gCost;
+    std::unordered_map<std::pair<int,int>, float> gCost;    //Costo desde el inicio
     gCost[start] = 0.0f;
+
+    std::priority_queue<std::pair<int,int>> OPEN;   //Nodos abiertos
+    std::unordered_set<std::pair<int,int>> CLOSED;  //Nodos cerrados
+
+    std::unordered_map<std::pair<int,int>, std::pair<int,int>> pathCache;   //Reconstruir camino
+    
+    OPEN.push(start);  //Agregar al inicio
 
     return {};
 }
