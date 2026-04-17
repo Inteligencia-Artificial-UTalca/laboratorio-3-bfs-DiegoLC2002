@@ -218,3 +218,14 @@ float Search::Heuristic(std::pair<int,int> start, std::pair<int,int> goal)
 
     return abs(start.first - goal.first) + abs(start.second - goal.second);
 }
+
+
+//Funciones para Lab 5
+std::vector<std::pair<int,int>> Search::AStar(const Map& map, std::pair<int,int> start, std::pair<int,int> goal)
+{
+    std::cout << "===========================\nEjecutando A*...\n";
+
+
+    return {};
+}
+

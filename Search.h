@@ -12,4 +12,8 @@ public:
     //Funciones Lab 4: BFS Greedy
     static std::vector<std::pair<int,int>> greedyBFS(const Map& map, std::pair<int,int> start, std::pair<int,int> goal); //find path using Greedy Best-First Search
     static float Heuristic(std::pair<int,int> start, std::pair<int,int> goal); //Calculate Heuristic value between two points
+
+    //Funciones Lab 5: A* (A-star)
+    static std::vector<std::pair<int,int>> AStar(const Map& map, std::pair<int,int> start, std::pair<int,int> goal);
+
 };
